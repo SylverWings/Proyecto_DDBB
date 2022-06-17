@@ -1,0 +1,29 @@
+{
+  "name": "proyecto_ddbb",
+  "version": "0.0.1",
+  "description": "Proyecto database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SylverWings/Proyecto_DDBB.git"
+  },
+  "author": "Lionel Garcia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SylverWings/Proyecto_DDBB/issues"
+  },
+  "homepage": "https://github.com/SylverWings/Proyecto_DDBB#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.16",
+    "sequelize": "^6.21.0",
+    "winston": "^3.7.2"
+  }
+}
