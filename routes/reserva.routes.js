@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const ReservaController = require("../controllers/ReservaController");
+const reservaController = require("../controllers/reservaController");
 
-router.get("/reservas", ReservaController.getAll);
-// router.get("/reservas/:id", ReservaController.getById);
-// router.get("/reservas/:dni", ReservaController.getByDni);
-// router.get("/reservas/:hotelId", ReservaController.getByHotelId);
-// router.get("/reservas/:fechaEntrada", ReservaController.getByEntrada);
-// router.get("/reservas/:fechaSalida", ReservaController.getBySalida);
+router.get("/reservas", reservaController.getAll);
+router.get("/reservas/:id", reservaController.getById);
+router.get("/reservas/:dni", reservaController.getByDni);
+router.get("/reservas/:hotelId", reservaController.getByHotelId);
+router.get("/reservas/:fechaEntrada", reservaController.getByEntrada);
+router.get("/reservas/:fechaSalida", reservaController.getBySalida);
+
 
 module.exports = router;
