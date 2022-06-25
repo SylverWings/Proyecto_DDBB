@@ -2,66 +2,106 @@ const db = require("../models");
 const reservas = db.reservas;
 const Op = db.Sequelize.Op;
 
-let hotel = require("../models").hotels;
-let cliente = require("../models").clientes;
+const reservaModel = require("../models").category;
 
 const reservaController = {};
 
-reservaController.getAll = (req, res) =>{
-
-    reservas.findAll()
-    .then(data =>{
-        res.send(data).json({
-            success: true,
-            message: "Get all reservas retrivered successfully",
-            data: data
-        });
+reservaController.getAll = (req, res) => {
+    
+  reservas.findAll({include: [{ model:reservaModel}]})
+    .then(data => {
+      res.send(data);
     })
-    .catch(error =>{
-        res.status(404).json({
-            success: false,
-            message: "Error detected",
-            data: error?.message || error
-        })
-    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving orders."
+      });
+    });
 };
 
 reservaController.getById = (req, res) => {
-    const id = req.params.id;
+  
+  const id = req.params.id;
 
-    reservas.findByPk(id, {include: [{ model:categoryModel}]})
-      .then(data => {
-        if (data) {
-          res.send(data);
-        } else {
-          res.status(404).send({
-            message: `Cannot find Tutorial with id=${id}.`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error retrieving movies with id= " + id
+  reservas.getById(id, {include: [{ model:reservaModel}]})
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Order with id=${id}.`
         });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving order with id=" + id
       });
+    });
 };
 
-reservaController.getByDni = async(req, res) =>{
-    const dni = req.params.dni;
-    const reservaDni = await res.json(reservas.findByDni(dni));
-    return reservaDni;    
+reservaController.getByDni = (req, res) => {
+  
+  const dni = req.params.dni;
+
+  reservas.getByDni(dni, {include: [{ model:reservaModel}]})
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Order with dni=${dni}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving orders with dni=" + dni
+      });
+    });
 };
 
-reservaController.getByHotelId = async(req, res) =>{
-    const hotelId = req.params.hotelId;
-    const reservaHotel = await res.json(reservas.findByHotelId(hotelId));
-    return reservaHotel;
+reservaController.getByHotelId = (req, res) => {
+  
+  const hotelId = req.params.hotelId;
+
+  reservas.getByHotelId(hotelId, {include: [{ model:reservaModel}]})
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find order with hotelId=${hotelId}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving orders with hotelId=" + hotelId
+      });
+    });
 };
 
-reservaController.getByEntrada = async(req, res) =>{
-    const fechaEntrada = req.params.fechaEntrada;
-    const reservaEntrada = await res.json(reservas.findByEntrada(fechaEntrada));
-    return reservaEntrada;
+reservaController.getByEntrada = (req, res) => {
+  
+  const fechaEntrada = req.params.fechaEntrada;
+
+  reservas.getByEntrada(fechaEntrada, {include: [{ model:reservaModel}]})
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find order with fechaEntrada=${fechaEntrada}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving orders with fechaEntrada=" + fechaEntrada
+      });
+    });
 };
 
 

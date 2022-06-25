@@ -5,13 +5,13 @@ module.exports = (sequelize, DataTypes) => {
   class Cliente extends Model {    
     static associate(models) {
         this.hasMany(models.reserva, {
-          foreignKey: "dni"
+          foreignKey: "id"
         })
     }
   }
   Cliente.init({
     dni: {
-      type: STRING,
+      type: DataTypes.STRING,
       primaryKey: true
     },
     nombre: DataTypes.STRING,

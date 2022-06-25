@@ -2,12 +2,23 @@ const express = require ('express');
 const colors = require('colors');
 const morgan =require('morgan');
 const logger = require('./config/winston');
-const db = require('./db.js');
+const db = require('./db.js')
 const router = require('./router.js')
+
+require('dotenv').config();
+
 const app = express ();
-app.use(express.json());
-
-
-
 const PORT = process.env.PORT || 3000
-app.listen(PORT, ()=> console.log(`Server on port ${PORT}`.bgGreen.black));
+const reservaRoutes = require('./routes/reserva.routes');
+
+app.use("/", reservaRoutes);
+app.use(morgan('combined', { stream: logger.stream }));
+
+app.use(express.json());
+app.use(router);
+
+
+db.then(()=>{    
+        app.listen(PORT, ()=> console.log(`Server on port ${PORT}`.bgGreen.black));
+    })
+    .catch((err)=> console.log(err.message));   

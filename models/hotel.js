@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Hotel.init({
     hotelId: {
-      type: STRING,
+      type: DataTypes.STRING,
       primaryKey: true
   },
     nombre: DataTypes.STRING

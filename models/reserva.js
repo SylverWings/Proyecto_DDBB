@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Reserva.init({
     id: {
-      type: STRING,
+      type: DataTypes.STRING,
       primaryKey: true
     },
     importe: DataTypes.INTEGER,
