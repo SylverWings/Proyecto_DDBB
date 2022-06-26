@@ -2,14 +2,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Reservas', {
-      id: {
+      reservaId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
-      id: {
-        type: Sequelize.STRING
       },
       importe: {
         type: Sequelize.INTEGER
@@ -19,6 +16,26 @@ module.exports = {
       },
       fechaSalida: {
         type: Sequelize.DATE
+      }, 
+      hotelId:{     
+        allowNull: false,   
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Hotels",
+          key: "hotelId",
+          as: "hotelId"
+        }
+      },
+      dni: {        
+        allowNull: false,
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        references: {
+          model: "Clientes",
+          key: "dni",
+          as: "dni"
+        }
       },
       createdAt: {
         allowNull: false,

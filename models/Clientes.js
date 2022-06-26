@@ -2,14 +2,14 @@
 const {Model} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Cliente extends Model {    
+  class Clientes extends Model {    
     static associate(models) {
-        Cliente.hasMany(models.Reserva, {
-          foreignKey: "id"
+        Clientes.hasMany(models.Reservas, {
+          foreignKey: "dni"
         })
     }
   }
-  Cliente.init({
+  Clientes.init({
     dni: {
       type: DataTypes.STRING,
       primaryKey: true
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     telefono: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Cliente',
+    modelName: 'Clientes',
   });
-  return Cliente;
+  return Clientes;
 };
